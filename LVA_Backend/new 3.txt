@@ -1,0 +1,23 @@
+var test     = require('tape');
+var awsMock = require('../index.js');
+var AWS      = require('aws-sdk');
+var isNodeStream = require('is-node-stream');
+var concatStream = require('concat-stream');
+/*var dynamoDb = AWS.DynamoDB();
+*/
+AWS.config.paramValidation = false;
+
+
+test('AWS.MOCK FUNCTION  SHOULD MOCK COGNITO AWS SERVICE AND VERIFY EMAIL ADRESS ', function(t){
+  t.test('AWS.MOCK FUNCTION  SHOULD MOCK COGNITO AWS SERVICE AND VERIFY PASSWORD LENGTH ===8 WITHOUT SPECIAL CARACTERS', function(st){
+    AWS.mock('Cognito', 'theCallYouWantToMock', function(params, callback) {
+      callback(null, 'success');
+  }); 
+  var sns = new AWS.COGNITO();
+    sns.publish({}, function(err, data){
+      st.equals(data, 'message');
+      awsMock.restore('SNS');
+      st.end();
+    });
+    t.end();
+  });

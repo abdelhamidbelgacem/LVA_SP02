@@ -1,0 +1,7 @@
+LVA_Backend:
+    image: LVA_Backend/LVA_Backend:3.4
+    command: LVA_Backend serve --watch --incremental
+    ports:
+        - 4000:4000
+    volumes:
+        - ./LVA_Backend:/srv/LVA_Backend
